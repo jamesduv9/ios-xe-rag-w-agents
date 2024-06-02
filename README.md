@@ -5,15 +5,15 @@
 Currently includes:
 
 - (complete) a Cisco command reference parser (only tested for IOS XE 17.X docs). Stores commands as documents in a vector database for RAG.
-- Agent workflow that is meant to provide high-level information about the network:
-- One agent breaks down the question into a simpler, straightforward question.
-- Another agent picks the best command from a list of commands provided by semantic search (RAG).
-- Documentation and question are validated by another agent.
-- Loops back if the command does not answer the question.
-- Topology agent selects network devices to run the chosen command on.
-- Another agent compiles the outputs from all the network devices into an overall answer to the question.
-- Starts the process again with another part of the original question.
-- Continues checking until the final answer is reached.
+- (semi-working) Agent workflow that is meant to provide high-level information about the network:
+    - One agent breaks down the question into a simpler, straightforward question.
+    - Another agent picks the best command from a list of commands provided by semantic search (RAG).
+    - Documentation and question are validated by another agent.
+    - Loops back if the command does not answer the question.
+    - Topology agent selects network devices to run the chosen command on.
+    - Another agent compiles the outputs from all the network devices into an overall answer to the question.
+    - Starts the process again with another part of the original question.
+    - Continues checking until the final answer is reached.
 
 
 Still needs A LOT of work with prompting.
@@ -31,7 +31,7 @@ pip install -r requirements.txt
 
 ## Usage
 
-### Running the Main Script
+### CLI
 
 `ios-xe-rag-w-agents.py` is a CLI that can be ran to execute the main functionality of the project. Ensure you have configured the necessary environment variables and configuration files. 
 
@@ -50,7 +50,7 @@ Commands:
 
 ```
 
-
+### 
 ## Configuration
 
 ### Environment Variables
