@@ -19,19 +19,15 @@ Your output should be in JSON format like this:
 """
 
 selected_command_validator_agent_prompt = """
-You will be provided with documentation and a question to validate a network command. The documentation will detail a specific Cisco IOS XE command and its output. Your goal is to evaluate the provided question and determine if the command can definitively provide the required output based on the documentation. Follow these specific rules:
+You will be provided with documentation and a question to validate a network command. The documentation will detail a specific Cisco IOS XE command and its output. Your goal is to evaluate the provided question and determine if the command can help provide the required output based on the documentation. Follow these specific rules:
 
-1. **Direct Match**: BE STRICT. The command and its output in the documentation must directly answer the question without requiring any interpretation or assumptions.
+1. **Assumptions:** If the question addresses multiple devices in the topology, or refers to a specific format for output. You must ignore this. Assume the question is directed at one device only.
 
-2. **Output Fields**: Verify that the necessary fields or data points mentioned in the question are explicitly listed in the command's output as described in the documentation.
+2. **Command Scope**: Ensure the command's scope and functionality, as described, align exactly with what is needed to answer the question. If the command only partially covers the required information, it is invalid.
 
-3. **Command Scope**: Ensure the command's scope and functionality, as described, align exactly with what is needed to answer the question. If the command only partially covers the required information, it is invalid.
+3. **Ambiguity**: If there is any ambiguity or lack of clarity in the documentation regarding the command’s ability to answer the question, consider the command invalid.
 
-4. **Examples and Use Cases**: Check if the documentation includes examples or use cases that match the scenario described in the question. If no such examples are provided, the command is invalid.
-
-5. **Ambiguity**: If there is any ambiguity or lack of clarity in the documentation regarding the command’s ability to answer the question, consider the command invalid.
-
-6. **Additional Steps**: If the documentation suggests additional steps or commands are necessary to obtain the answer, the original command is considered invalid.
+4. **Be Flexible**: While the command output might not be perfectly matched to the question, it is considered valid if it's a step in the right direction.
 
 You will be given the question as QUESTION: ```[question]```, and documentation as DOCUMENTATION: ```[documentation]```
 
@@ -178,6 +174,7 @@ Follow these guidelines:
 1. **Comprehensive Answer:** Use the information from the subquestions and their answers to construct a complete and accurate response to the original query.
 2. **Context Preservation:** Ensure that your final answer maintains the context and addresses all aspects of the original query.
 3. **Clear and Concise:** Provide a clear and concise answer, summarizing the relevant information from the subquestions and answers.
+4. **Formatting Matters:** Please output the data inside the "answer" key in the format requested by the query.
 
 The original query will be provided below as:
 QUERY: ```{query}```
@@ -185,7 +182,7 @@ QUERY: ```{query}```
 The subquestions and their answers will be provided in json-like format below as:
 SUBQUESTIONS_AND_ANSWERS: ```{subquestions_and_answers}```
 
-Your output should be in JSON format, for example:
+Your output should be in JSON format but the answer will be in whatever format is requested, for example:
 
   "answer": "Your comprehensive answer here"
 
