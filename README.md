@@ -1,6 +1,6 @@
 # IOS-XE-RAG-W-Agents
 
-**Work in progress, I do not suggest using this until this is updated.**
+**Work in progress, I do not suggest using this until updated.**
 
 Currently includes:
 
@@ -17,7 +17,8 @@ Currently includes:
 
 
 Still needs A LOT of work with prompting.
-
+## General warning
+This uses OPENAI Embeddings and chat completion APIs and can be quite costly. 
 
 ## Installation
 
@@ -31,6 +32,21 @@ pip install -r requirements.txt
 
 ## Usage
 
+## Configuration
+
+### Environment Variables
+
+The project uses environment variables for configuration. Ensure you have a `.env` file with the required variables. An example `.env` file might look like this:
+
+```
+OPENAI_API_KEY=your_key
+DEVICE_USERNAME=your_username
+DEVICE_PASSWORD=your_password
+```
+
+### Topology Configuration
+
+The topology configuration is specified in the `topology_config.json` file. Edit this file to match your network topology. This file is fed directly into the topology agent and must be accurate to ensure correct devices are picked.
 ### CLI
 
 `ios-xe-rag-w-agents.py` is a CLI that can be ran to execute the main functionality of the project. Ensure you have configured the necessary environment variables and configuration files. 
@@ -50,20 +66,13 @@ Commands:
 
 ```
 
-### 
-## Configuration
+### Scraping command references
+In order for the agent workflow to work at all, you'll need to scrape the cisco command reference docs to get data inside your vector db. 
 
-### Environment Variables
-
-The project uses environment variables for configuration. Ensure you have a `.env` file with the required variables. An example `.env` file might look like this:
-
+```bash
+python ios-xe-rag-w-agents.py command-ref-scrape --base-url "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/17_xe/command/command-references.html" --vector-store my_stores/new_store --command-filter show
 ```
-OPENAI_API_KEY=your_key
-DEVICE_USERNAME=your_username
-DEVICE_PASSWORD=your_password
-```
+This will create a new vector db in the `my_stores` directory. Inside that vector db we will store every command that contains `show` (because of the filter). Each of the commands are inside the db as a single "document" and can be retrieved later through semantic search.
 
-### Topology Configuration
 
-The topology configuration is specified in the `topology_config.json` file. Edit this file to match your network topology. This file is fed directly into the topology agent and must be accurate to ensure correct devices are picked.
 
