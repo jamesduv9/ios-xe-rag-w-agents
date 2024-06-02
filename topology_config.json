@@ -1,0 +1,24 @@
+{
+    "topology": [
+        {
+            "ip_address": "192.168.1.111",
+            "device_name": "C8K1"
+        },
+        {
+            "ip_address": "192.168.1.102",
+            "device_name": "C8K2"
+        },
+        {
+            "ip_address": "192.168.1.103",
+            "device_name": "C8K3"
+        },
+        {
+            "ip_address": "192.168.1.104",
+            "device_name": "C8K4"
+        },
+        {
+            "ip_address": "192.168.1.105",
+            "device_name": "C8K5"
+        }
+    ]
+}
