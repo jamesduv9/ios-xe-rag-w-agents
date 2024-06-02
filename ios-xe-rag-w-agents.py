@@ -75,9 +75,10 @@ def cmd_ref_scrape(base_url, vector_store, command_filter):
 
 @main_menu.command(name="agent-workflow")
 @click.option("--topology-file-path", help="Path to your topology file", show_default=True, default="topology_config.json")
-def agentic(topology_file_path: str):
+@click.option("--vector-store-path", help="Vector store path that contains the commands you want to use for RAG", required=True)
+def agentic(topology_file_path: str, vector_store_path:str):
     show_cmd_store = VectorStoreInterface(
-        vs_name="my_stores/show_command_db_final"
+        vs_name=vector_store_path
     )
 
     multipart_q_agent = Agent(
