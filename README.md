@@ -17,6 +17,9 @@ Currently includes:
 
 
 Still needs A LOT of work with prompting.
+
+![WindowsTerminal_QcmyD4yLOH](https://github.com/jamesduv9/ios-xe-rag-w-agents/assets/32336049/0433ac42-a48d-40b0-9ad8-1327ab1c66a8)
+
 ## General warning
 This uses OPENAI Embeddings and chat completion APIs and can be quite costly. 
 
