@@ -78,4 +78,11 @@ python ios-xe-rag-w-agents.py command-ref-scrape --base-url "https://www.cisco.c
 This will create a new vector db in the `my_stores` directory. Inside that vector db we will store every command that contains `show` (because of the filter). Each of the commands are inside the db as a single "document" and can be retrieved later through semantic search.
 
 
+### Starting Agent Workflow
+Once you've got your vector db setup and loaded with relevant commands, run the agent workflow-
+
+```bash
+python ios-xe-rag-w-agents.py agent-workflow --vector-store-path my_stores/new_store
+```
+This will then prompt you for a question and start the workflow, cross your fingers, and hope for a good response.
 
