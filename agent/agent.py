@@ -1,13 +1,10 @@
-import os
-from dotenv import load_dotenv
+"""
+Purpose: Basic interface for the OpenAI api completions api
+instantiated with a prompt that can be templated on the fly.
+"""
+from typing import Optional
 
-load_dotenv()
 import openai
-
-
-class NoAPIKey(Exception):
-    def __str__(self):
-        return "No OPENAI API Key Found in .env file"
 
 
 class Agent:
@@ -20,12 +17,10 @@ class Agent:
         query_prompt: str = "",
         model: str = "gpt-3.5-turbo",
         system_prompt: str = "",
-        few_shot_prompt: list = None,
+        few_shot_prompt: Optional[list] = None,
         temperature: int = 0,
         retain_history: bool = False,
     ):
-        if not os.getenv("OPENAI_API_KEY"):
-            raise NoAPIKey
         self.openai_client = openai.Client()
         self.query_prompt = query_prompt
         self.system_prompt = system_prompt
@@ -33,7 +28,8 @@ class Agent:
         self.model = model
         self.temperature = temperature
         self.retain_history = retain_history
-        self.history = [] if self.retain_history else None
+        if self.retain_history:
+            self.history: list = []
 
     def generate_query(self, **kwargs):
         """
